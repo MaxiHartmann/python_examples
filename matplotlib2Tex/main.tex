@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{pgfplots}
+\usepackage{standalone}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2212}{−}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes.arrows}
+\pgfplotsset{compat=newest}
+\pgfplotsset{
+        table/search path={data/.},
+    }
+\usetikzlibrary{spy}
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=tikz/]
+
+\newlength\figH
+\newlength\figW
+\setlength{\figH}{4cm}
+\setlength{\figW}{8cm}
+
+\begin{document}
+
+Some text, then a centred plot:
+
+\begin{center}
+\input{data/example1.tex}
+\end{center}
+More text, then a wider plot:
+
+\begin{center}
+\setlength{\figW}{10cm} % when added inside the  center environment it has no effect outside it
+\input{data/example2.tex}
+\end{center}
+
+\begin{center}
+\setlength{\figW}{6cm} % when added inside the  center environment it has no effect outside it
+\input{data/example3.tex}
+\end{center}
+
+\begin{center}
+\setlength{\figW}{12cm}
+\input{data/example4.tex}
+\end{center}
+
+\begin{center}
+\setlength{\figW}{12cm}
+\input{data/example5.tex}
+\end{center}
+
+\begin{center}
+\setlength{\figW}{12cm}
+\setlength{\figH}{6cm}
+\input{data/skinFriction.tex}
+\end{center}
+
+\end{document}
