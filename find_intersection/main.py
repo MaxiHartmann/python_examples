@@ -46,5 +46,3 @@ plt.plot(x,y, '*k')
 
 
 plt.show()
-# 
-
