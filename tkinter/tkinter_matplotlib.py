@@ -25,21 +25,26 @@ class Window:
         self.vertical_shift = 0
         self.phase_shift = 0
 
+
         tk.Label(self.root, text="Amplitude").grid(row=0, column=0)
         self.amplitude_entry = tk.Entry(self.root, width=5)
         self.amplitude_entry.grid(row=0, column=1)
+        self.amplitude_entry.insert(0, '1.0')
 
         tk.Label(self.root, text="Frequency").grid(row=1, column=0)
         self.frequency_entry = tk.Entry(self.root, width=5)
         self.frequency_entry.grid(row=1, column=1)
+        self.frequency_entry.insert(0, '1.0')
 
         tk.Label(self.root, text="Vertical Shift").grid(row=2, column=0)
         self.vertical_shift_entry = tk.Entry(self.root, width=5)
         self.vertical_shift_entry.grid(row=2, column=1)
+        self.vertical_shift_entry.insert(0, '0.0')
 
         tk.Label(self.root, text="Phase Shift").grid(row=3, column=0)
         self.phase_shift_entry = tk.Entry(self.root, width=5)
         self.phase_shift_entry.grid(row=3, column=1)
+        self.phase_shift_entry.insert(0, '0.0')
 
         button1 = tk.Button(self.root, text="Calculate", command=self.update_values)
         button1.grid(row=4, column=0)
@@ -47,6 +52,7 @@ class Window:
         self.plot_values()
         pass
 
+<<<<<<< HEAD
 #     def update_values(self, event=None):
 #         self.amplitude = float(self.amplitude_entry.get())
 #         self.phase_shift = float(self.phase_shift_entry.get())
@@ -54,6 +60,16 @@ class Window:
 #         self.frequency = float(self.frequency_entry.get())
 #         self.plot_values()
 #         return None
+=======
+    def update_values(self, event=None):
+        self.amplitude = float(self.amplitude_entry.get())
+        self.phase_shift = float(self.phase_shift_entry.get())
+        self.vertical_shift = float(self.vertical_shift_entry.get())
+        self.frequency = float(self.frequency_entry.get())
+        self.plot_values()
+        
+        # return None
+>>>>>>> dc3779291a520ca16ca7e85adb72452b5589c19a
 
     def plot_values(self):
         y = []
