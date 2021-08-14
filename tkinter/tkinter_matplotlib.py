@@ -47,13 +47,13 @@ class Window:
         self.plot_values()
         pass
 
-    def update_values(self, event=None):
-        self.amplitude = float(self.amplitude_entry.get())
-        self.phase_shift = float(self.phase_shift_entry.get())
-        self.vertical_shift = float(self.vertical_shift_entry.get())
-        self.frequency = float(self.frequency_entry.get())
-        self.plot_values()
-        return None
+#     def update_values(self, event=None):
+#         self.amplitude = float(self.amplitude_entry.get())
+#         self.phase_shift = float(self.phase_shift_entry.get())
+#         self.vertical_shift = float(self.vertical_shift_entry.get())
+#         self.frequency = float(self.frequency_entry.get())
+#         self.plot_values()
+#         return None
 
     def plot_values(self):
         y = []
