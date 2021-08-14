@@ -1,55 +1,84 @@
 import numpy as np
 import matplotlib.pyplot as plt
 plt.rc('axes', axisbelow=True)
-pi=np.pi
-
-origin = [0, 0]
+from numpy import sin, cos, tan, pi
 
 beta = 20. * pi/180.
-sigma = 29.8009155 * pi/180.
+sigma =  37.7636341 * pi/180.
 
-M1 = 5.0
-M1n = M1 * np.sin(sigma)
-M1t = np.sqrt(M1 * M1 - M1n * M1n)
+M1 = 3.0
+M1n = M1 * sin(sigma)
+M1t = M1 * cos(sigma)
 
-M2 =  3.02215162
-M2n = M2 * np.sin(sigma-beta)
-M2t = np.sqrt(M2 * M2 - M2n * M2n)
+M2 =  1.99413166
+M2n = M2 * sin(sigma-beta)
+M2t = M2 * cos(sigma-beta)
+
+# attention:    v1t == v2t,
+# but           M1t =! M2t, 
+# cause a1 =! a2 and T1 =! T2
 
 fig, ax = plt.subplots()
 
 # plot wall boundary
-h=np.sin(beta)
-wall_xcoords = [-1.5, 0, 1, 2, 2, -1.5, -1.5]
-wall_ycoords = [0, 0, h, h, 3, 3, 0]
+ramp_length=2
+h = tan(beta)*ramp_length
+right_bound = 10
+wall_xcoords = [-5, 0, ramp_length, right_bound]
+wall_ycoords = [0, 0, h, h]
 ax.plot(wall_xcoords, wall_ycoords, color='k') 
 
 # plot shock
-shock_xcoords = [0, 2]
-shock_ycoords = [0, np.sin(sigma)*2]
-ax.plot(shock_xcoords, shock_ycoords, color='gray', linestyle='--') 
+shock_xcoords = [0, 10*cos(sigma)]
+shock_ycoords = [0, 10*sin(sigma)]
+ax.plot(shock_xcoords, shock_ycoords, color='gray', linestyle='-', lw=0.5) 
 
-
-
+# origin should be on shock line
+origin=[0,0]
+origin=[1,1*tan(sigma)]
 
 # Before Shock
-x_pos = -M1/3
-y_pos = h/2
-x_direct = M1/3
+x_pos = origin[0] - M1
+y_pos = origin[1]
+
+# plot: M1
+x_direct = M1
 y_direct = 0
+ax.quiver(x_pos, y_pos, x_direct, y_direct, units='xy', color='g', scale=1)
+# plot: M1n
+x_direct = M1n*sin(sigma)
+y_direct = -M1n*cos(sigma)
+ax.quiver(x_pos, y_pos, x_direct, y_direct, units='xy', color='b', scale=1)
+# plot: M1t
+x_pos = x_pos + M1n*sin(sigma)
+y_pos = y_pos - M1n*cos(sigma)
+x_direct = M1t*cos(sigma)
+y_direct = M1t*sin(sigma)
+ax.quiver(x_pos, y_pos, x_direct, y_direct, units='xy', color='y', scale=1)
 
-# Mach1
-ax.quiver(x_pos, y_pos, x_direct, y_direct, units='xy', color='k', scale=1)
-
-# Mach1 normal
-ax.quiver(x_pos, y_pos, M1n*np.sin(sigma), -M1n*np.cos(sigma), units='xy', color='b', scale=3)
-ax.quiver(x_pos, y_pos, M1t*np.cos(sigma), M1t*np.sin(sigma), units='xy', color='y', scale=3)
+# Mach2
+x_pos = origin[0]
+y_pos = origin[1]
+x_direct = M2*cos(beta)
+y_direct = M2*sin(beta)
+ax.quiver(x_pos, y_pos, x_direct, y_direct, units='xy', color='g', scale=1)
+# plot: M2n
+x_pos = origin[0]+M2t*cos(sigma)
+y_pos = origin[1]+M2t*sin(sigma)
+x_direct = M2n*sin(sigma)
+y_direct = -M2n*cos(sigma)
+ax.quiver(x_pos, y_pos, x_direct, y_direct, units='xy', color='b', scale=1)
+# plot: M2t
+x_pos = origin[0]
+y_pos = origin[1]
+x_direct = M2t*cos(sigma)
+y_direct = M2t*sin(sigma)
+ax.quiver(x_pos, y_pos, x_direct, y_direct, units='xy', color='y', scale=1)
 
 ax.set_title('Machnumber relations for oblique shock')
 ax.grid(linestyle=':')
 ax.axis('equal')
-
-ax.set_xlim(-2, 4)
-ax.set_ylim(-2, 4)
+# ax.set_xlim(-2, 3)
+# ax.set_ylim(0, 3)
 
 plt.show()
